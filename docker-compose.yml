@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  network-api:
+    build: .
+    container_name: linux-network-api
+    ports:
+      - "8000:8000"
+    network_mode: host
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - /etc/netplan:/etc/netplan:rw
+      - /etc/network:/etc/network:rw
+      - /etc/NetworkManager:/etc/NetworkManager:rw
+      - /etc/systemd/network:/etc/systemd/network:rw
+      - /etc/resolv.conf:/etc/resolv.conf:rw
+      - /etc/hostname:/etc/hostname:rw
+      - /etc/hosts:/etc/hosts:rw
+      - /run/systemd:/run/systemd:rw
+      - /var/run/dbus:/var/run/dbus:rw
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DOCKER_CONTAINER=true
+    stdin_open: true
+    tty: true
