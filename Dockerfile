@@ -20,7 +20,7 @@ ENV SYSTEMD_IGNORE_CHROOT=1
 WORKDIR /app
 
 # کپی فایل‌های پروژه
-COPY ./* .
+COPY . .
 
 # تنظیم مجوزها
 RUN chmod +x init-container.sh
